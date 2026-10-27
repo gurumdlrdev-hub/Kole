@@ -1,0 +1,7 @@
+﻿.git
+.gitignore
+*.apk
+*.exe
+cmd/client/
+docs/
+*.md
