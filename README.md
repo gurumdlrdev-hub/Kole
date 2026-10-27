@@ -200,43 +200,69 @@ This project helped me gain practical experience with:
 
 ## Architecture Diagram
 
+## System Architecture
+
+```mermaid
 flowchart LR
-    User([User])
-    
+
+    User[User]
+
     subgraph Android["Android Device (Fyne App)"]
-        Touch[Touch Surface<br/>16:9 Landscape]
-        Normalize[Coordinate Normalizer<br/>0 - 65535]
-        Packet[5-Byte Binary Encoder<br/>Big-Endian]
-        
+
+        Touch[Touch Surface]
+
+        Normalize[Coordinate Normalization<br/>0 - 65535]
+
+        Packet[5-Byte Binary Packet]
+
+        APK[Kole.apk]
+
         Touch --> Normalize
         Normalize --> Packet
     end
 
-    subgraph Network["Transport Layer"]
-        UDP[UDP Datagram Socket<br/>Port 9000]
+    subgraph Network["UDP Transport"]
+
+        UDP[UDP Socket<br/>Port 9000]
+
     end
 
-    subgraph Windows["Windows Host (Daemon)"]
-        Server[Go UDP Server<br/>4MB Read Buffer]
-        Decode[Binary Packet Decoder]
-        Mapping[Screen Resolution Scaler]
-        Input[RobotGo Win32 Injection]
-        
+    subgraph Windows["Windows Host"]
+
+        Server[Go UDP Server]
+
+        Decode[Packet Decoder]
+
+        Mapping[Coordinate Mapping]
+
+        Input[RobotGo Input Injection]
+
         Server --> Decode
         Decode --> Mapping
         Mapping --> Input
     end
 
-    subgraph Applications["Active Canvas Applications"]
+    subgraph Applications["Drawing Applications"]
+
         Paint[MS Paint]
+
         Photoshop[Adobe Photoshop]
-        Whiteboard[Digital Whiteboards]
+
+        Whiteboard[Other Drawing Apps]
+
     end
 
     User --> Touch
+
     Packet --> UDP
+
     UDP --> Server
-    Input --> Applications
+
+    Input --> Paint
+    Input --> Photoshop
+    Input --> Whiteboard
+```
+
 
 ## License
 
