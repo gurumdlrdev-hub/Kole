@@ -1,0 +1,19 @@
+﻿# Binaries and executables
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+*.apk
+*.a
+
+# Go workspace and test artifacts
+*.test
+*.out
+vendor/
+
+# IDE and OS metadata
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
