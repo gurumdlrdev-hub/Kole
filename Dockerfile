@@ -1,7 +1,10 @@
 # ==========================================
 # Stage 1: Build Environment
 # ==========================================
-FROM golang:1.22-bookworm AS builder
+FROM golang:bookworm AS builder
+
+
+ENV GOTOOLCHAIN=auto
 
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
